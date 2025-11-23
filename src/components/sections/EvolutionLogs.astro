@@ -1,0 +1,61 @@
+---
+import type { EvolutionLogsContent } from "../../i18n/ui";
+
+interface Props {
+    t: EvolutionLogsContent;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="w-full py-20 px-4 bg-paper text-void relative">
+    <div class="max-w-7xl mx-auto">
+        <div
+            class="flex justify-between items-end mb-12 border-b border-gray-200 pb-8"
+        >
+            <div>
+                <p class="font-mono text-xs tracking-widest mb-2 text-gray-500">
+                    {t.header}
+                </p>
+                <h2 class="font-serif text-4xl md:text-6xl">
+                    {t.title}
+                    <span class="italic font-light text-gray-400"
+                        >{t.subtitle}</span
+                    >
+                </h2>
+            </div>
+            <div class="hidden md:block font-mono text-xs text-gray-400">
+                // SYSTEM_LOGS_V24
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8">
+            {
+                t.logs.map((log) => (
+                    <article class="group cursor-pointer">
+                        <div class="flex flex-col md:flex-row md:items-baseline gap-4 mb-2">
+                            <span class="font-mono text-xs text-gray-400 min-w-[100px]">
+                                {log.date}
+                            </span>
+                            <h3 class="font-serif text-2xl md:text-3xl group-hover:text-acid transition-colors bg-void/0 group-hover:bg-void px-2 -ml-2 rounded-sm">
+                                {log.title}
+                            </h3>
+                        </div>
+                        <div class="md:pl-[116px]">
+                            <p class="font-sans text-gray-600 text-lg leading-relaxed max-w-3xl mb-4">
+                                {log.excerpt}
+                            </p>
+                            <div class="flex gap-2">
+                                {log.tags.map((tag) => (
+                                    <span class="font-mono text-[10px] uppercase border border-gray-300 px-2 py-0.5 text-gray-500 rounded-full">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+    </div>
+</section>

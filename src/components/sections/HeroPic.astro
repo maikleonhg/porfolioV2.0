@@ -1,0 +1,161 @@
+---
+import { Image } from "astro:assets";
+import heroCoat from "../../assets/images/hero_coat.jpg";
+import heroSiluet from "../../assets/images/hero_siluet.png";
+import type { SystemProfileContent } from "../../i18n/ui";
+
+interface Props {
+    t: {
+        hardwired: string;
+        logic: string;
+    };
+    profile: SystemProfileContent;
+}
+
+const { t, profile } = Astro.props;
+---
+
+<div id="scroll-container" class="relative w-full bg-void h-[350vh]">
+    <!-- BLOQUE STICKY: FOTO + TEXTO -->
+    <div
+        class="h-screen w-full flex items-center justify-center overflow-hidden"
+        style="position: sticky; top: 0;"
+    >
+        <!-- CAPA 0: IMÁGENES -->
+        <div
+            id="hero-images"
+            class="absolute inset-0 z-0 w-full h-full will-change-transform"
+        >
+            <Image
+                src={heroCoat}
+                alt="Background"
+                class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-50"
+            />
+
+            <!-- Overlay que se oscurece -->
+            <div
+                id="image-overlay"
+                class="absolute inset-0 bg-void/0 transition-colors duration-300"
+            >
+            </div>
+
+            <div class="absolute inset-0 flex items-center justify-center">
+                <Image
+                    src={heroSiluet}
+                    alt="Silhouette"
+                    class="h-[110%] w-auto object-cover grayscale contrast-125 brightness-90 drop-shadow-2xl mt-20"
+                />
+            </div>
+        </div>
+
+        <!-- CAPA 1: TEXTO (HARDWIRED / LOGIC) -->
+        <div
+            id="hero-text"
+            class="relative z-10 w-full h-full flex flex-col items-center justify-center pointer-events-none"
+        >
+            <div
+                class="absolute top-[15%] w-full text-center mix-blend-difference"
+            >
+                <h2
+                    class="font-display text-[12vw] font-bold tracking-widest text-[#EFE5D5] opacity-90"
+                >
+                    {t.hardwired}
+                </h2>
+            </div>
+
+            <div
+                class="absolute top-[50%] w-full text-center mix-blend-difference"
+            >
+                <h2
+                    class="font-display text-[18vw] font-bold tracking-[0.1em] leading-none text-[#EFE5D5] opacity-90"
+                >
+                    {t.logic}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- SYSTEM PROFILE PANEL -->
+    <section class="relative z-20 mt-[90vh] pb-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <div
+                class="bg-paper/10 backdrop-blur-xl border border-white/20 p-10 md:p-12 shadow-2xl rounded-sm"
+            >
+                <!-- Header -->
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-2 w-2 bg-acid rounded-full animate-pulse">
+                    </div>
+                    <span
+                        class="font-mono text-acid text-xs tracking-widest uppercase"
+                    >
+                        {profile.header}
+                    </span>
+                </div>
+
+                <!-- Subtitle -->
+                <h3
+                    class="font-serif text-3xl md:text-4xl text-paper mb-8 tracking-tight"
+                >
+                    {profile.subtitle}
+                </h3>
+
+                <!-- Narrative -->
+                <div
+                    class="space-y-6 font-mono text-sm md:text-base text-gray-300 leading-relaxed"
+                >
+                    {
+                        profile.narrative
+                            .split("\n\n")
+                            .map((paragraph: string) => (
+                                <p class="text-justify">{paragraph}</p>
+                            ))
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    const container = document.getElementById("scroll-container");
+    const images = document.getElementById("hero-images");
+    const overlay = document.getElementById("image-overlay");
+    const text = document.getElementById("hero-text");
+
+    if (container && images && text && overlay) {
+        window.addEventListener("scroll", () => {
+            const rect = container.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const totalDist = rect.height - viewportHeight;
+
+            let progress = 0;
+            if (rect.top <= 0) {
+                progress = Math.abs(rect.top) / totalDist;
+            }
+            progress = Math.min(Math.max(progress, 0), 1);
+
+            // 1) TEXTO: 0 → 0.5 (desaparece y sube un poco)
+            if (progress <= 0.5) {
+                const textProgress = progress / 0.5; // 0 → 1
+                text.style.opacity = `${1 - textProgress}`;
+                text.style.transform = `translateY(-${textProgress * 100}px)`;
+            } else {
+                text.style.opacity = "0";
+            }
+
+            // 2) IMAGEN: 0.5 → 1 (blur + oscurecer)
+            if (progress > 0.5) {
+                const imgProgress = (progress - 0.5) / 0.5; // 0 → 1
+
+                const blurAmount = imgProgress * 20;
+                images.style.filter = `blur(${blurAmount}px)`;
+
+                const opacity = imgProgress * 0.6;
+                overlay.style.backgroundColor = `rgba(10, 10, 10, ${opacity})`;
+            } else {
+                images.style.filter = "blur(0px)";
+                overlay.style.backgroundColor = `rgba(10, 10, 10, 0)`;
+            }
+        });
+    }
+</script>

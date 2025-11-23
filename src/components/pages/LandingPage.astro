@@ -1,0 +1,33 @@
+---
+import SystemLayout from "../../layouts/SystemLayout.astro";
+import Hero from "../sections/Hero.astro";
+import HeroPic from "../sections/HeroPic.astro";
+import DeployedSystems from "../sections/DeployedSystems.astro";
+import RnDLabs from "../sections/RnDLabs.astro";
+import Benchmarks from "../sections/Benchmarks.astro";
+import CurrentVector from "../sections/CurrentVector.astro";
+import LanguageSwitcher from "../ui/LanguageSwitcher.astro";
+import { content } from "../../i18n/ui";
+
+import TheKernel from "../sections/TheKernel.astro";
+import EvolutionLogs from "../sections/EvolutionLogs.astro";
+
+interface Props {
+    lang: "es" | "en";
+}
+
+const { lang } = Astro.props;
+const t = content[lang];
+---
+
+<SystemLayout title="Maik Leon | Portfolio V2" lang={lang}>
+    <LanguageSwitcher currentLang={lang} />
+    <Hero t={t.hero} />
+    <HeroPic t={t.hero} profile={t.systemProfile} />
+    <TheKernel t={t.kernel} />
+    <DeployedSystems t={t.deployedSystems} />
+    <RnDLabs t={t.rndLabs} />
+    <Benchmarks t={t.benchmarks} />
+    <CurrentVector t={t.currentVector} />
+    <EvolutionLogs t={t.evolutionLogs} />
+</SystemLayout>

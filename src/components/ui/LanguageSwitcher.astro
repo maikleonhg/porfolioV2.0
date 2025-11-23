@@ -1,0 +1,31 @@
+---
+interface Props {
+    currentLang: "es" | "en";
+}
+
+const { currentLang } = Astro.props;
+---
+
+<div
+    class="fixed top-8 right-8 z-50 flex items-center gap-2 mix-blend-difference"
+>
+    <a
+        href="/"
+        class:list={[
+            "font-mono text-xs transition-colors duration-300 hover:text-acid",
+            currentLang === "es" ? "text-acid font-bold" : "text-white/60",
+        ]}
+    >
+        ES
+    </a>
+    <span class="text-white/20 font-mono text-xs">/</span>
+    <a
+        href="/en"
+        class:list={[
+            "font-mono text-xs transition-colors duration-300 hover:text-acid",
+            currentLang === "en" ? "text-acid font-bold" : "text-white/60",
+        ]}
+    >
+        EN
+    </a>
+</div>

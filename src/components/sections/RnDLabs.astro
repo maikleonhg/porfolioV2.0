@@ -1,0 +1,95 @@
+---
+import type { RnDLabsContent } from "../../i18n/ui";
+
+interface Props {
+    t: RnDLabsContent;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="w-full py-20 px-4 bg-paper text-void">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-12 flex justify-between items-end">
+            <div>
+                <p class="font-mono text-xs tracking-widest mb-2">{t.header}</p>
+                <h2 class="font-serif text-5xl md:text-7xl">
+                    {t.title}
+                    <br />
+                    <span class="italic font-light text-gray-400"
+                        >{t.subtitle}</span
+                    >
+                </h2>
+            </div>
+        </div>
+
+        <div
+            class="grid grid-cols-1 md:grid-cols-3 grid-rows-1 md:grid-rows-2 gap-4 h-auto md:h-[600px]"
+        >
+            <!-- Quantified Self (Large - Left) -->
+            <div
+                class="md:col-span-2 md:row-span-2 bg-void text-paper p-8 flex flex-col justify-between group relative overflow-hidden"
+            >
+                <div class="z-10">
+                    <span
+                        class="font-mono text-xs text-acid border border-acid px-2 py-1 rounded-full"
+                        >{t.quantifiedSelf.tag}</span
+                    >
+                    <h3 class="font-serif text-4xl md:text-6xl mt-6">
+                        {t.quantifiedSelf.title}
+                    </h3>
+                </div>
+                <a
+                    href="#"
+                    class="font-mono text-sm hover:text-acid transition-colors z-10 inline-block mt-4"
+                    >{t.quantifiedSelf.link}</a
+                >
+                <div
+                    class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#222_0%,transparent_60%)]"
+                >
+                </div>
+            </div>
+
+            <!-- Iron Fortress (Top Right) -->
+            <div
+                class="bg-gray-200 p-8 flex flex-col justify-between group hover:bg-gray-300 transition-colors"
+            >
+                <div>
+                    <span class="font-mono text-xs text-gray-500"
+                        >{t.ironFortress.tag}</span
+                    >
+                    <h3 class="font-serif text-2xl mt-2">
+                        {t.ironFortress.title}
+                    </h3>
+                    <p class="font-mono text-xs text-gray-600 mt-2">
+                        {t.ironFortress.desc}
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 mt-4">
+                    <div
+                        class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+                    >
+                    </div>
+                    <span class="font-mono text-xs"
+                        >{t.ironFortress.status}</span
+                    >
+                </div>
+            </div>
+
+            <!-- Engineering Reality (Bottom Right) -->
+            <div
+                class="bg-void text-paper p-8 flex flex-col justify-center items-center text-center group border border-gray-800 hover:border-acid transition-colors"
+            >
+                <span class="font-mono text-xs text-acid mb-2"
+                    >{t.engineeringReality.tag}</span
+                >
+                <h3 class="font-serif text-2xl">
+                    {t.engineeringReality.title}
+                </h3>
+                <p class="font-mono text-xs text-gray-500 mt-2">
+                    {t.engineeringReality.desc}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

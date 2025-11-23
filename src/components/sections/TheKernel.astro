@@ -1,0 +1,71 @@
+---
+import type { KernelContent } from '../../i18n/ui';
+
+interface Props {
+  t: KernelContent;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="w-full py-32 px-4 bg-void text-paper relative overflow-hidden">
+    <!-- Background Grid -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1c1c1c_1px,transparent_1px),linear-gradient(to_bottom,#1c1c1c_1px,transparent_1px)] bg-size-[4rem_4rem] opacity-20"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <!-- Header -->
+        <div class="mb-20 text-center">
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <div class="h-px w-16 bg-acid"></div>
+                <span class="font-mono text-acid text-xs tracking-[0.3em] uppercase">{t.header}</span>
+                <div class="h-px w-16 bg-acid"></div>
+            </div>
+            <h2 class="font-serif text-5xl md:text-7xl mb-6">
+                {t.title} <span class="italic font-light text-gray-500">{t.subtitle}</span>
+            </h2>
+            <p class="font-mono text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                {t.description}
+            </p>
+        </div>
+
+        <!-- Principles Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {t.principles.map((principle, index) => (
+                <div class="group relative">
+                    <!-- Card -->
+                    <div class="h-full border border-white/10 bg-white/5 p-8 backdrop-blur-sm hover:border-acid/50 hover:bg-white/10 transition-all duration-500">
+                        <!-- Index Number -->
+                        <div class="font-mono text-acid/30 text-xs mb-4 tracking-widest">
+                            [{String(index + 1).padStart(2, '0')}]
+                        </div>
+                        
+                        <!-- Title -->
+                        <h3 class="font-mono text-lg md:text-xl text-white mb-6 tracking-tight leading-tight group-hover:text-acid transition-colors">
+                            {principle.title}
+                        </h3>
+                        
+                        <!-- Description -->
+                        <p class="font-mono text-xs md:text-sm text-gray-400 leading-relaxed text-justify">
+                            {principle.desc}
+                        </p>
+                        
+                        <!-- Status Indicator -->
+                        <div class="absolute top-6 right-6 w-2 h-2 bg-acid/20 rounded-full group-hover:bg-acid group-hover:shadow-[0_0_10px_#ccff00] transition-all"></div>
+                    </div>
+
+                    <!-- Connector Line (only between cards, not after last one) -->
+                    {index < t.principles.length - 1 && (
+                        <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-white/10 to-transparent"></div>
+                    )}
+                </div>
+            ))}
+        </div>
+
+        <!-- Bottom Accent -->
+        <div class="mt-20 border-t border-white/10 pt-8 text-center">
+            <p class="font-mono text-acid/60 text-xs tracking-widest">
+                // METHODOLOGY_RUNTIME_v24.10
+            </p>
+        </div>
+    </div>
+</section>

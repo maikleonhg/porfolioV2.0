@@ -1,0 +1,67 @@
+---
+import type { BenchmarksContent } from "../../i18n/ui";
+
+interface Props {
+  t: BenchmarksContent;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="w-full py-20 px-4 bg-void text-paper">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16">
+      <p class="font-mono text-acid text-sm tracking-widest mb-2">{t.header}</p>
+      <h2 class="font-serif text-5xl md:text-7xl mb-4">
+        {t.title}
+        <span class="italic font-light text-gray-500">{t.subtitle}</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+      <!-- Columna A: Procesamiento -->
+      <div class="space-y-12">
+        <h3 class="font-mono text-xl border-b border-gray-800 pb-4">
+          {t.colA.title}
+        </h3>
+        <div class="space-y-8">
+          {
+            t.colA.items.map((item) => (
+              <div class="group">
+                <div class="flex justify-between items-baseline mb-2">
+                  <h4 class="font-serif text-2xl group-hover:text-acid transition-colors">
+                    {item.title}
+                  </h4>
+                  <span class="font-mono text-xs text-gray-500">
+                    {item.year}
+                  </span>
+                </div>
+                <p class="font-mono text-sm text-gray-400">{item.subtitle}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Columna B: Hardware -->
+      <div class="space-y-12">
+        <h3 class="font-mono text-xl border-b border-gray-800 pb-4">
+          {t.colB.title}
+        </h3>
+        <div class="space-y-8">
+          {
+            t.colB.items.map((item) => (
+              <div class="border border-gray-800 p-6 hover:border-acid transition-colors">
+                <div class="flex justify-between items-start mb-4">
+                  <span class="font-mono text-xs text-acid">{item.label}</span>
+                  <span class="font-mono text-xl">{item.value}</span>
+                </div>
+                <h4 class="font-serif text-2xl">{item.title}</h4>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

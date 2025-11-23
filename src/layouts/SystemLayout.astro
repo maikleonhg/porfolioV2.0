@@ -1,0 +1,32 @@
+---
+import "../styles/global.css";
+import "@fontsource/cinzel/400.css";
+import "@fontsource/cinzel/700.css";
+import "@fontsource/space-mono/400.css";
+import "@fontsource/space-mono/700.css";
+import "@fontsource/anton/400.css";
+
+interface Props {
+    title: string;
+    description?: string;
+    lang?: string;
+}
+
+const { title, description = "Portfolio V2", lang = "es" } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <div class="noise-overlay"></div>
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>

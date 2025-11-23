@@ -1,0 +1,70 @@
+---
+import type { DeployedSystemsContent } from '../../i18n/ui';
+
+interface Props {
+  t: DeployedSystemsContent;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="relative w-full bg-void py-24 px-4 md:px-12 overflow-hidden">
+  <!-- Header de la sección -->
+  <div class="max-w-7xl mx-auto mb-16 relative z-10">
+    <div class="flex items-center gap-4 mb-4">
+      <div class="h-px w-12 bg-acid"></div>
+      <span class="font-mono text-acid text-xs tracking-widest uppercase">{t.header}</span>
+    </div>
+    <h2 class="font-display text-4xl md:text-6xl text-white uppercase tracking-tighter">
+      {t.title} <span class="text-white/30">{t.subtitle}</span>
+    </h2>
+  </div>
+
+  <!-- Lista de Sistemas -->
+  <div class="max-w-7xl mx-auto flex flex-col gap-8 relative z-10">
+    {t.systems.map((system, index) => (
+      <div class="group relative border border-white/10 bg-white/5 backdrop-blur-sm hover:border-acid/50 transition-all duration-500 ease-out">
+        <!-- Efecto Hover de Fondo -->
+        <div class="absolute inset-0 bg-linear-to-r from-acid/0 via-acid/5 to-acid/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        
+        <div class="p-8 md:p-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <!-- ID & Status -->
+          <div class="md:col-span-2 flex flex-col justify-between h-full">
+            <span class="font-mono text-white/40 text-xs">{system.id}</span>
+            <div class="hidden md:block w-2 h-2 bg-acid rounded-full animate-pulse shadow-[0_0_10px_#ccff00]"></div>
+          </div>
+
+          <!-- Main Info -->
+          <div class="md:col-span-6 space-y-4">
+            <h3 class="font-serif text-2xl md:text-4xl text-white group-hover:text-acid transition-colors duration-300">
+              {system.title}
+            </h3>
+            <p class="font-mono text-white/60 text-sm uppercase tracking-wider">
+              {system.subtitle}
+            </p>
+          </div>
+
+          <!-- Stack & Description -->
+          <div class="md:col-span-4 space-y-6">
+            <p class="font-sans text-white/80 text-lg leading-relaxed border-l-2 border-white/10 pl-4">
+              {system.description}
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {system.stack.map((tech) => (
+                <span class="px-3 py-1 border border-white/20 text-white/60 font-mono text-xs uppercase hover:bg-white/10 hover:text-white transition-colors cursor-default">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Esquinas Decorativas -->
+        <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30"></div>
+        <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30"></div>
+        <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30"></div>
+        <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30"></div>
+      </div>
+    ))}
+  </div>
+</section>

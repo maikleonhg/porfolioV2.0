@@ -1,0 +1,76 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+@theme {
+  --font-serif: 'Cinzel', serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-display: 'Anton', sans-serif;
+
+  --color-void: #0a0a0a;
+  --color-concrete: #1c1c1c;
+  --color-paper: #e5e5e5;
+  --color-acid: #ccff00;
+  --color-alert: #ff2a00;
+
+  --background-image-noise: url('/noise.png');
+}
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --color-bg: #0a0a0a;
+  --color-text: #ffffff;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  /* overflow-x: hidden; */
+}
+
+/* El Ruido de fondo (Noise) */
+.bg-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar Brutalista */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ccff00;
+}
+
+/* Utilidad para el estilo PEAKED (Texto recortado por imagen) */
+.text-mask-image {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: cover;
+  background-position: center;
+}
+
+.no-x-scroll {
+  overflow-x: hidden;
+}

@@ -1,0 +1,52 @@
+---
+import type { CurrentVectorContent } from '../../i18n/ui';
+
+interface Props {
+  t: CurrentVectorContent;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="relative w-full bg-void py-24 px-4 md:px-12 overflow-hidden border-t border-white/10">
+  <!-- Header -->
+  <div class="max-w-7xl mx-auto mb-16 relative z-10">
+    <div class="flex items-center gap-4 mb-4">
+      <div class="h-px w-12 bg-acid"></div>
+      <span class="font-mono text-acid text-xs tracking-widest uppercase">{t.header}</span>
+    </div>
+    <h2 class="font-display text-4xl md:text-6xl text-white uppercase tracking-tighter">
+      {t.title} <span class="text-white/30">{t.subtitle}</span>
+    </h2>
+  </div>
+
+  <!-- Dashboard Grid -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+    {t.vectors.map((vector) => (
+      <div class="group border border-white/10 bg-white/5 p-8 backdrop-blur-sm hover:border-acid/30 transition-all duration-500">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <span class="block font-mono text-xs text-acid mb-2">{vector.category}</span>
+            <h3 class="font-serif text-xl text-white group-hover:text-acid transition-colors">{vector.target}</h3>
+          </div>
+          <span class="font-mono text-xs text-white/40 border border-white/10 px-2 py-1 rounded-full">{vector.status}</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-mono">
+            <span class="text-white/60">PROGRESS</span>
+            <span class="text-acid">{vector.progress}%</span>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="h-1 w-full bg-white/10 overflow-hidden">
+            <div 
+              class="h-full bg-acid transition-all duration-1000 ease-out group-hover:shadow-[0_0_10px_#ccff00]"
+              style={`width: ${vector.progress}%`}
+            ></div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
