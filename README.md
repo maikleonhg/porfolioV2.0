@@ -1,7 +1,5 @@
 # Maik Leon | Portfolio V2.1
 
-![System Profile](public/images/sectorB/drleonwebherosection.webp)
-
 > **System v2.1 // ONLINE**
 > An advanced portfolio engineered with data-driven design, focusing on high-performance rendering and a "Hardwired Logic" aesthetic.
 
