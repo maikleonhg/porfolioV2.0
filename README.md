@@ -1,43 +1,68 @@
-# Astro Starter Kit: Minimal
+# Maik Leon | Portfolio V2.1
 
-```sh
-npm create astro@latest -- --template minimal
-```
+![System Profile](public/images/sectorB/drleonwebherosection.webp)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> **System v2.1 // ONLINE**
+> An advanced portfolio engineered with data-driven design, focusing on high-performance rendering and a "Hardwired Logic" aesthetic.
 
-## 🚀 Project Structure
+## ⚡ System Architecture
 
-Inside of your Astro project, you'll see the following folders and files:
+This project is built on a modern, high-performance stack designed for speed and scalability:
+
+- **Core**: [Astro](https://astro.build) (Static Site Generation)
+- **Styling**: TailwindCSS + Custom "Acid" Design System
+- **Interactivity**: React & Vanilla JS (Motion One for animations)
+- **Localization**: Native i18n support (ES/EN)
+- **Deployment**: Static output (Netlify/Vercel ready)
+
+## 🧬 Key Modules
+
+- **The Kernel**: Core operating principles and personal philosophy.
+- **Deployed Systems**: A comprehensive showcase of major projects (Sector A: Core, Sector B: Client, Sector C: Hardware).
+- **Benchmarks**: Quantified personal and professional achievements.
+- **Current Vector**: Live tracking of current goals and certifications.
+
+## 🛠️ Installation & Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/maikleonhg/porfolioV2.0.git
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Initialize Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for Production**:
+   ```bash
+   npm run build
+   ```
+
+## 📂 Project Structure
 
 ```text
 /
-├── public/
+├── public/             # Static assets (Images, Icons)
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/     # UI & Section Components
+│   ├── data/           # Structured Data (Projects, Awards)
+│   ├── i18n/           # Localization Strings
+│   ├── layouts/        # Page Layouts
+│   └── pages/          # Routing & Views
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🚀 Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+This project is configured for static deployment. 
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist/`
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+*© 2025 Maik Leon. Hardwired Logic.*
