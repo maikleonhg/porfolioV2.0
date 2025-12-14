@@ -1,0 +1,84 @@
+---
+import SystemLayout from "../layouts/SystemLayout.astro";
+import Navbar from "../components/ui/Navbar.astro";
+import { sectors as allSectors } from "../data/projects/portfolioData";
+
+const lang = "es";
+// Show ALL sectors in /work
+const workSectors = allSectors;
+---
+
+<SystemLayout title="Work | Maik Leon" lang={lang} showPreloader={false}>
+    <Navbar lang={lang} currentPath="/work" />
+    
+    <main class="min-h-screen bg-void pt-64 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto mb-40 text-center">
+             <h1 class="font-display text-5xl md:text-8xl text-paper uppercase leading-tight tracking-tight">
+                Creating next level<br/>
+                <span class="text-acid">digital products</span>
+            </h1>
+        </div>
+
+        <div class="space-y-40 max-w-5xl mx-auto pb-40">
+            {workSectors.map(sector => (
+                <section>
+                    <div class="border-b border-white/10 pb-8 mb-16 flex justify-between items-end">
+                        <div>
+                             <h2 class="font-serif text-3xl text-white">{sector.title}</h2>
+                             <p class="font-sans text-white/50 text-sm mt-2">{sector.subtitle}</p>
+                        </div>
+                        <p class="font-mono text-white/20 text-xs hidden md:block">// SECTOR_{sector.id.split('_')[1]}</p>
+                    </div>
+
+                    <div class="space-y-32">
+                        {sector.projects.map(project => (
+                             <article class="group relative grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                                <!-- Content (Left on desktop) -->
+                                <div class="md:col-span-5 space-y-8 order-2 md:order-1">
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="font-mono text-acid text-xs border border-acid/20 px-2 py-1">{project.status}</span>
+                                            <span class="font-mono text-white/20 text-xs">{project.id}</span>
+                                        </div>
+                                         <h3 class="font-display text-4xl text-white group-hover:text-acid transition-colors">{project.title}</h3>
+                                    </div>
+                                    
+                                    <p class="font-sans text-white/70 text-lg leading-relaxed text-justify">{project.concept[lang]}</p>
+                                    
+                                    <div class="flex flex-wrap gap-2 pt-4">
+                                        {project.stack.map(tech => (
+                                            <span class="px-2 py-1 bg-white/5 text-white/40 text-xs font-mono">{tech}</span>
+                                        ))}
+                                    </div>
+
+                                    {project.type !== 'DEFAULT' && (
+                                        <div class="pt-4 font-mono text-xs text-white/30 flex items-center gap-2">
+                                            <span>TYPE: {project.type}</span>
+                                            {project.blueprint && <span class="bg-white/10 px-1 text-white/60">HAS_DOCS</span>}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <!-- Visual (Right on desktop) -->
+                                <div class="md:col-span-7 order-1 md:order-2">
+                                    <div class="w-full aspect-4/3 rounded-sm border border-white/10 group-hover:border-acid/30 transition-colors overflow-hidden relative bg-black/20">
+                                         {/* Handle Image Path vs Class Name */}
+                                          {project.visual.startsWith('/') || project.visual.startsWith('http') ? (
+                                            <img src={project.visual} alt={project.title} class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 grayscale group-hover:grayscale-0" />
+                                          ) : (
+                                            <div class={`w-full h-full ${project.visual} opacity-50 group-hover:opacity-80 transition-opacity`}>
+                                                {project.specialEffect === 'wireframe' && (
+                                                   <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_25%,rgba(255,255,255,0.05)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.05)_75%,rgba(255,255,255,0.05)_100%)] bg-size-[20px_20px]"></div>
+                                                )}
+                                            </div>
+                                          )}
+                                    </div>
+                                </div>
+                             </article>
+                        ))}
+                    </div>
+                </section>
+            ))}
+        </div>
+    </main>
+</SystemLayout>

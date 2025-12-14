@@ -23,6 +23,7 @@ export interface SystemItem {
     stack: string[];
     description: string;
     id: string;
+    date: string;
 }
 
 export interface DeployedSystemsContent {
@@ -117,11 +118,18 @@ export interface SystemProfileContent {
     narrative: string;
 }
 
+export interface ProjectsContent {
+    header: string;
+    title: string;
+    subtitle: string;
+}
+
 export interface UIContent {
     hero: HeroContent;
     systemProfile: SystemProfileContent;
     kernel: KernelContent;
-    deployedSystems: DeployedSystemsContent;
+    experience: DeployedSystemsContent; // Reusing the type for now as structure is same
+    projects: ProjectsContent;
     rndLabs: RnDLabsContent;
     benchmarks: BenchmarksContent;
     currentVector: CurrentVectorContent;
@@ -144,56 +152,64 @@ export const content: Record<'es' | 'en', UIContent> = {
         systemProfile: {
             header: "SYSTEM_PROFILE // ABOUT_ME",
             subtitle: "El Motor Multipotencial",
-            narrative: "Opero en la intersección donde la intuición humana falla y los datos toman el mando. Mi background no es tradicional: crecí entre la medicina y las matemáticas, desarrollando una obsesión por entender cómo funcionan los sistemas complejos —sean bases de datos en la nube o la fisiología humana durante un maratón.\n\nNo me limito a 'escribir código'. Construyo arquitecturas resilientes. Uso la filosofía para hacer las preguntas correctas y la ingeniería para ejecutar las respuestas precisas."
+            narrative: "Soy un desarrollador orientado a soluciones, enfocado en construir sistemas impulsados por datos, arquitectura sólida e inteligencia artificial. Mi enfoque profesional combina análisis, diseño y capacidad técnica para desarrollar productos de principio a fin.\nAdemás de trabajar con datos y modelos, también diseño y construyo la infraestructura necesaria para que las soluciones funcionen: desde el desarrollo full-stack hasta el despliegue en plataformas cloud y servidores propios. Me interesa crear sistemas escalables, confiables y preparados para crecer. \n\nBusco posicionarme como un profesional integral capaz de tomar una idea, convertirla en un sistema funcional y llevarlo hasta producción."
         },
         kernel: {
             header: "CORE_OPERATING_SYSTEM",
             title: "Sistema",
             subtitle: "Operativo",
-            description: "La metodología que ejecuta el sistema. Filosofía aplicada como código de producción.",
+            description: "Una mirada a cómo proceso el mundo",
             principles: [
                 {
-                    title: "RECURSIVE DEBUGGING",
-                    desc: "La duda es el primer paso de la compilación. Cuestiono mis propias hipótesis con la misma rigurosidad con la que audito un pipeline de datos. Entender el error interno es la única forma de evitar el colapso del sistema externo."
+                    title: "PENSAMIENTO MULTIDIMENSIONAL",
+                    desc: "Mi mente no opera en línea recta. Pienso en capas, escenarios paralelos y conexiones que emergen entre dominios distintos."
                 },
                 {
-                    title: "ANTIFRAGILE ARCHITECTURE",
-                    desc: "No busco estabilidad estática; busco sistemas que mejoren bajo estrés. El fallo, el caos y la carga pesada no son bugs, son features necesarios para la evolución. Si el sistema se rompe, se reconstruye mejor."
+                    title: "ARQUITECTURA ANTIFRÁGIL",
+                    desc: "Aprendo del error y del caos. Cada falla es una actualización que me hace más adaptable y más sólido."
                 },
                 {
-                    title: "FULL STACK PERFORMANCE",
-                    desc: "El código no corre en el vacío; corre en un cerebro biológico. Optimizo mi VO2 Max y mi sueño con la misma obsesión que mis queries de SQL. Un hardware (cuerpo) eficiente produce un software (mente) superior."
+                    title: "ALTO RENDIMIENTO INTEGRAL",
+                    desc: "Cuerpo y mente son un solo sistema. Cuido mi energía y mis hábitos para potenciar claridad, foco y creatividad."
                 }
             ],
             neuro: "Mi cerebro procesa a alta velocidad y busca patrones profundos en el ruido."
         },
-        deployedSystems: {
-            header: "Sistemas Desplegados",
-            title: "Experiencia",
-            subtitle: "Laboral",
+        experience: {
+            header: "Historial Operativo",
+            title: "Trayectoria",
+            subtitle: "Profesional",
             systems: [
                 {
                     title: "Somos Empleables",
                     subtitle: "Automatización y Data Engineering",
                     stack: ["n8n", "Apify", "Notion", "G-Sheets"],
-                    description: "Diseñé e implementé un sistema integral de automatización para la recolección, limpieza y clasificación de vacantes. Automatizé el scraping diario, depuración de datos y sincronización con Notion y Telegram, reduciendo el trabajo manual a cero.",
-                    id: "SYS-01"
+                    description: "Diseñé e implementé un sistema integral de automatización para la recolección, limpieza y clasificación de vacantes. Automaticé el scraping diario, depuración de datos y sincronización con Notion y Telegram, reduciendo el trabajo manual a cero.",
+                    id: "SYS-01",
+                    date: "Sep 2025 - Presente"
                 },
                 {
                     title: "BizBat",
                     subtitle: "Data Science Intern",
-                    stack: ["BigQuery", "GA4", "Looker", "GCP"],
-                    description: "Normalicé y unifiqué datos de usuarios en BigQuery, implementando pipelines automatizados. Lideré reportes KPI usando GA4 y Looker Studio para decisiones estratégicas.",
-                    id: "SYS-02"
+                    stack: ["Data Science", "BigQuery", "Google Cloud", "GA4", "Looker Studio", "Python", "SQL"],
+                    description: "Normalización y unificación de datos de usuarios y eventos en BigQuery, implementando pipelines automatizados para la inyección continua de datos y actualización de dashboards. Monitoreo y Reporte de KPIs: Lideré el reporte usando GA4 y desarrollé dashboards interactivos en Looker Studio, definiendo y reportando KPIs clave para la toma de decisiones estratégicas. Colaboré en la optimización de infraestructura en GCP y preparación de datos para el entrenamiento posterior de modelos de Machine Learning.",
+                    id: "SYS-02",
+                    date: "Feb 2025 - Sep 2025"
                 },
                 {
-                    title: "Gamified Reading Platform",
-                    subtitle: "Arquitectura IA y Automatización",
-                    stack: ["Whisper API", "LLM", "n8n"],
-                    description: "Diseñé arquitectura de IA para puntuación de comprensión lectora. Automaticé el flujo de datos gamificados y lideré la validación del modelo de negocio.",
-                    id: "SYS-03"
+                    title: "Startup Incubator - Novolabs",
+                    subtitle: "Automatización y Data Engineering",
+                    stack: ["Whisper API", "LLM", "n8n", "Business Model", "Gamification", "AI", "Startup Validation", "AI Architecture", "Automation"],
+                    description: "Arquitectura de IA y Automatización: Diseñé una arquitectura de IA compleja utilizando APIs (Whisper) para transcripción, procesando la salida con un LLM para puntuación de comprensión lectora y retroalimentación. Automaticé el flujo de datos, incluyendo actualizaciones de datos gamificados, utilizando un contenedor n8n para análisis de usuarios y mejora de lectura. Validación de Negocio: Lideré la fase de validación del modelo de negocio, definiendo estrategias de mercado y analizando investigación de usuarios potenciales para guiar el desarrollo del producto.",
+                    id: "SYS-03",
+                    date: "Nov 2024 - Abr 2025"
                 }
             ]
+        },
+        projects: {
+            header: "Laboratorio de Sistemas",
+            title: "Proyectos",
+            subtitle: "Desplegados",
         },
         rndLabs: {
             header: "Laboratorios I+D",
@@ -297,56 +313,64 @@ export const content: Record<'es' | 'en', UIContent> = {
         systemProfile: {
             header: "SYSTEM_PROFILE // ABOUT_ME",
             subtitle: "The Multipotential Engine",
-            narrative: "I operate at the intersection where human intuition fails and data takes command. My background isn't traditional: I grew up between medicine and mathematics, developing an obsession with understanding how complex systems work—whether cloud databases or human physiology during a marathon.\n\nI don't just 'write code'. I build resilient architectures. I use philosophy to ask the right questions and engineering to execute precise answers."
+            narrative: "I am a solution-oriented developer focused on building systems powered by data, solid architecture, and artificial intelligence. My professional approach combines analysis, design, and technical capability to develop products from start to finish.\nBeyond working with data and models, I also design and build the necessary infrastructure for solutions to work: from full-stack development to deployment on cloud platforms and self-hosted servers. I'm interested in creating scalable, reliable systems that are prepared to grow.\n\nI seek to position myself as a well-rounded professional capable of taking an idea, turning it into a functional system, and bringing it all the way to production."
         },
         kernel: {
             header: "CORE_OPERATING_SYSTEM",
             title: "Operating",
             subtitle: "System",
-            description: "The methodology that runs the system. Philosophy applied as production code.",
+            description: "A look at how I process the world.",
             principles: [
                 {
-                    title: "RECURSIVE DEBUGGING",
-                    desc: "Doubt is the first step of compilation. I question my own hypotheses with the same rigor I audit a data pipeline. Understanding internal error is the only way to prevent external system collapse."
+                    title: "MULTIDIMENSIONAL THINKING",
+                    desc: "My mind doesn't operate in a straight line. I think in layers, parallel scenarios, and connections that emerge between distinct domains."
                 },
                 {
                     title: "ANTIFRAGILE ARCHITECTURE",
-                    desc: "I don't seek static stability; I seek systems that improve under stress. Failure, chaos, and heavy load aren't bugs—they're necessary features for evolution. If the system breaks, it rebuilds better."
+                    desc: "I learn from error and chaos. Every failure is an update that makes me more adaptable and solid."
                 },
                 {
-                    title: "FULL STACK PERFORMANCE",
-                    desc: "Code doesn't run in a vacuum; it runs in a biological brain. I optimize my VO2 Max and sleep with the same obsession as my SQL queries. Efficient hardware (body) produces superior software (mind)."
+                    title: "HOLISTIC HIGH PERFORMANCE",
+                    desc: "Body and mind are a single system. I optimize my energy and habits to enhance clarity, focus, and creativity."
                 }
             ],
             neuro: "My brain processes at high speed and seeks deep patterns in the noise."
         },
-        deployedSystems: {
-            header: "Deployed Systems",
-            title: "Work",
-            subtitle: "Experience",
+        experience: {
+            header: "Operational History",
+            title: "Professional",
+            subtitle: "Trajectory",
             systems: [
                 {
                     title: "Somos Empleables",
                     subtitle: "Automation & Data Engineering",
                     stack: ["n8n", "Apify", "Notion", "G-Sheets"],
                     description: "Designed and implemented a comprehensive automation system for job vacancy collection, cleaning, and classification. Automated daily scraping, data debugging, and synchronization with Notion and Telegram, reducing manual work to zero.",
-                    id: "SYS-01"
+                    id: "SYS-01",
+                    date: "Sep 2025 - Present"
                 },
                 {
                     title: "BizBat",
                     subtitle: "Data Science Intern",
-                    stack: ["BigQuery", "GA4", "Looker", "GCP"],
-                    description: "Normalized and unified user data in BigQuery, implementing automated pipelines. Led KPI reporting using GA4 and Looker Studio for strategic decision-making.",
-                    id: "SYS-02"
+                    stack: ["Data Science", "BigQuery", "Google Cloud", "GA4", "Looker Studio", "Python", "SQL"],
+                    description: "Normalized and unified user and event data in BigQuery, implementing automated pipelines for continuous data injection and dashboard updates. KPI Monitoring & Reporting: Led reporting using GA4 and developed interactive dashboards in Looker Studio, defining and reporting key KPIs for strategic decision-making. Collaborated on GCP infrastructure optimization and data preparation for subsequent Machine Learning model training.",
+                    id: "SYS-02",
+                    date: "Feb 2025 - Sep 2025"
                 },
                 {
-                    title: "Gamified Reading Platform",
-                    subtitle: "AI Architecture & Automation",
-                    stack: ["Whisper API", "LLM", "n8n"],
-                    description: "Designed AI architecture utilizing Whisper and LLMs for reading comprehension scoring. Automated gamified data flow and led business model validation.",
-                    id: "SYS-03"
+                    title: "Startup Incubator - Novolabs",
+                    subtitle: "AI Architecture and Automation",
+                    stack: ["Whisper API", "LLM", "n8n", "Business Model", "Gamification", "AI", "Startup Validation", "AI Architecture", "Automation"],
+                    description: "AI Architecture and Automation: Designed a complex AI architecture utilizing APIs (Whisper) for transcription, processing output with an LLM for reading comprehension scoring and feedback. Automated the data flow, including gamified data updates, using an n8n container for user analysis and reading enhancement. Business Validation: Led the business model validation phase, defining market strategies and analyzing potential user research to guide product development.",
+                    id: "SYS-03",
+                    date: "Nov 2024 - Apr 2025"
                 }
             ]
+        },
+        projects: {
+            header: "Systems Laboratory",
+            title: "Deployed",
+            subtitle: "Projects",
         },
         rndLabs: {
             header: "R&D Labs",

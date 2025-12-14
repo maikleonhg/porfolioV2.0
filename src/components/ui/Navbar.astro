@@ -1,0 +1,203 @@
+---
+interface Props {
+    lang?: string;
+    currentPath?: string;
+}
+
+const { lang = "es", currentPath = "/" } = Astro.props;
+
+const baseNavItems = {
+    es: [
+        { label: "PERFIL", href: "#system-profile" },
+        { label: "EXPERIENCIA", href: "#experience" },
+        { label: "PROYECTOS", href: "#deployed-systems" },
+        { label: "DIPLOMAS", href: "#benchmarks" },
+    ],
+    en: [
+        { label: "PROFILE", href: "#system-profile" },
+        { label: "EXPERIENCE", href: "#experience" },
+        { label: "PROJECTS", href: "#deployed-systems" },
+        { label: "RECOGNITIONS", href: "#benchmarks" },
+    ],
+};
+
+const items = baseNavItems[lang as keyof typeof baseNavItems];
+
+// Adjust links if on /work page
+const currentNavItems = items.map((item) => ({
+    ...item,
+    href: currentPath === "/work" ? `/${item.href}` : item.href,
+}));
+---
+
+<nav
+    class="fixed top-0 left-0 w-full z-50 px-4 md:px-12 py-6 transition-all duration-300"
+    id="navbar"
+>
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <a
+            href={currentPath === "/work" ? "/" : "#"}
+            class="group flex items-center gap-2"
+        >
+            <!-- Removed 'M' box as requested -->
+            <div>
+                <span
+                    class="font-display text-white text-lg tracking-tight group-hover:text-acid transition-colors"
+                    >MAIK<span class="text-white/30 group-hover:text-acid/50"
+                        >LEON</span
+                    ></span
+                >
+            </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div
+            class="hidden md:flex items-center gap-8 bg-black/20 backdrop-blur-md px-6 py-2 rounded-full border border-white/5"
+        >
+            {
+                currentNavItems.map((item) => (
+                    <a
+                        href={item.href}
+                        class="font-mono text-xs text-white/60 hover:text-acid transition-colors"
+                    >
+                        {item.label}
+                    </a>
+                ))
+            }
+
+            <!-- Language Switcher (Desktop) -->
+            <div class="h-4 w-px bg-white/10 mx-2"></div>
+            <div class="flex gap-2 font-mono text-xs">
+                <a
+                    href="/"
+                    class={`transition-colors hover:text-acid ${lang === "es" ? "text-acid font-bold" : "text-white/40"}`}
+                    >ES</a
+                >
+                <span class="text-white/20">/</span>
+                <a
+                    href="/en"
+                    class={`transition-colors hover:text-acid ${lang === "en" ? "text-acid font-bold" : "text-white/40"}`}
+                    >EN</a
+                >
+            </div>
+        </div>
+
+        <!-- Burger Button -->
+        <button
+            class="md:hidden group flex flex-col gap-1.5 p-2 z-50 relative"
+            aria-label="Menu"
+            id="menu-btn"
+        >
+            <span
+                class="w-6 h-0.5 bg-white group-hover:bg-acid transition-colors origin-right"
+                id="burger-top"></span>
+            <span
+                class="w-4 h-0.5 bg-white group-hover:bg-acid transition-colors ml-auto"
+                id="burger-middle"></span>
+            <span
+                class="w-6 h-0.5 bg-white group-hover:bg-acid transition-colors origin-right"
+                id="burger-bottom"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+        class="fixed inset-0 w-full h-screen bg-zinc-950 z-40 transform translate-x-full transition-transform duration-500 flex flex-col items-center justify-center"
+        id="mobile-menu"
+    >
+        <div class="flex flex-col items-center gap-8">
+            {
+                currentNavItems.map((item) => (
+                    <a
+                        href={item.href}
+                        class="font-display text-4xl text-white hover:text-acid transition-colors mobile-link"
+                    >
+                        {item.label}
+                    </a>
+                ))
+            }
+
+            {/* Manual Work Link in Mobile if not already covered */}
+            {
+                currentPath !== "/work" && (
+                    <a
+                        href="/work"
+                        class="font-display text-4xl text-white hover:text-acid transition-colors mobile-link"
+                    >
+                        WORK ARCHIVE
+                    </a>
+                )
+            }
+        </div>
+
+        <!-- Language Switcher (Mobile) -->
+        <div class="flex gap-4 font-mono text-lg mt-12">
+            <a
+                href="/"
+                class={`transition-colors hover:text-acid ${lang === "es" ? "text-acid font-bold" : "text-white/40"}`}
+                >ES</a
+            >
+            <span class="text-white/20">/</span>
+            <a
+                href="/en"
+                class={`transition-colors hover:text-acid ${lang === "en" ? "text-acid font-bold" : "text-white/40"}`}
+                >EN</a
+            >
+        </div>
+    </div>
+</nav>
+
+<script is:inline>
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+    const burgerTop = document.getElementById("burger-top");
+    const burgerMiddle = document.getElementById("burger-middle");
+    const burgerBottom = document.getElementById("burger-bottom");
+
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+
+        if (isMenuOpen) {
+            mobileMenu.classList.remove("translate-x-full");
+            document.body.style.overflow = "hidden";
+
+            // Animate Burger to X
+            burgerTop.style.transform = "rotate(-45deg) translate(-2px, 2px)";
+            burgerMiddle.style.opacity = "0";
+            burgerBottom.style.transform =
+                "rotate(45deg) translate(-2px, -2px)";
+        } else {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.style.overflow = "";
+
+            // Reset Burger
+            burgerTop.style.transform = "";
+            burgerMiddle.style.opacity = "1";
+            burgerBottom.style.transform = "";
+        }
+    }
+
+    menuBtn?.addEventListener("click", toggleMenu);
+
+    mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            if (isMenuOpen) toggleMenu();
+        });
+    });
+
+    // Scroll Effect
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add("bg-void/80", "backdrop-blur-md", "py-4");
+            navbar.classList.remove("py-6");
+        } else {
+            navbar.classList.remove("bg-void/80", "backdrop-blur-md", "py-4");
+            navbar.classList.add("py-6");
+        }
+    });
+</script>

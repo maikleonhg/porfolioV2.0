@@ -8,7 +8,7 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section class="w-full py-32 px-4 bg-void text-paper relative overflow-hidden">
+<section class="w-full py-32 px-4 bg-void text-paper relative overflow-hidden" id="system-profile">
     <!-- Background Grid -->
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#1c1c1c_1px,transparent_1px),linear-gradient(to_bottom,#1c1c1c_1px,transparent_1px)] bg-size-[4rem_4rem] opacity-20"></div>
 
@@ -55,17 +55,10 @@ const { t } = Astro.props;
 
                     <!-- Connector Line (only between cards, not after last one) -->
                     {index < t.principles.length - 1 && (
-                        <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-white/10 to-transparent"></div>
+                        <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-px bg-linear-to-r from-white/10 to-transparent"></div>
                     )}
                 </div>
             ))}
-        </div>
-
-        <!-- Bottom Accent -->
-        <div class="mt-20 border-t border-white/10 pt-8 text-center">
-            <p class="font-mono text-acid/60 text-xs tracking-widest">
-                // METHODOLOGY_RUNTIME_v24.10
-            </p>
         </div>
     </div>
 </section>

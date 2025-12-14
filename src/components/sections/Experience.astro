@@ -1,0 +1,116 @@
+---
+import type { DeployedSystemsContent } from '../../i18n/ui';
+
+interface Props {
+  t: DeployedSystemsContent;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="relative w-full bg-concrete py-24 px-4 md:px-12" id="experience">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="h-px w-12 bg-acid"></div>
+                    <span class="font-mono text-acid text-xs tracking-widest uppercase">{t.header}</span>
+                </div>
+                <h2 class="font-serif text-4xl md:text-6xl text-white uppercase tracking-tighter">
+                    {t.title} <span class="text-white/30 italic font-light">{t.subtitle}</span>
+                </h2>
+            </div>
+            <div class="font-mono text-white/20 text-xs text-right">
+                // PROFESSIONAL_LOGS<br/>
+                // HUMAN_CAPITAL_V2
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="relative ml-4 md:ml-12 space-y-16" id="experience-timeline">
+            <!-- Static Gray Line -->
+            <div class="absolute left-0 top-0 h-full w-px bg-white/10"></div>
+            <!-- Dynamic Green Trail -->
+            <div id="timeline-progress" class="absolute left-0 top-0 w-px bg-acid shadow-[0_0_15px_rgba(204,251,241,0.6)] h-0 transition-[height] duration-75 ease-linear"></div>
+
+            {t.systems.map((job) => (
+                <div class="relative pl-8 md:pl-16 group timeline-item">
+                    <!-- Timeline Dot -->
+                    <div class="timeline-dot absolute -left-[5px] top-2 w-2.5 h-2.5 bg-void border border-white/30 group-hover:border-acid group-hover:bg-acid transition-colors duration-300 z-10"></div>
+                    
+                    <!-- Content -->
+                    <div class="flex flex-col md:flex-row gap-8 md:gap-16">
+                        <!-- Left Column: Meta -->
+                        <div class="md:w-1/3">
+                            <span class="font-mono text-acid text-xs mb-2 block">{job.date}</span>
+                            <h3 class="font-display text-3xl text-white mb-1 group-hover:text-acid transition-colors">{job.title}</h3>
+                            <p class="font-mono text-white/50 text-sm">{job.subtitle}</p>
+                            
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                {job.stack.map(tech => (
+                                    <span class="text-[10px] font-mono text-white/30 border border-white/10 px-1.5 py-0.5">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Description -->
+                        <div class="md:w-2/3">
+                             <div class="font-mono text-white/20 text-[10px] mb-2">
+                                // ID: {job.id}
+                            </div>
+                            <p class="font-mono text-white/70 text-sm leading-relaxed max-w-2xl">
+                                {job.description}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script>
+    const timeline = document.getElementById('experience-timeline');
+    const progress = document.getElementById('timeline-progress');
+    const dots = document.querySelectorAll('.timeline-dot');
+
+    if (timeline && progress) {
+        window.addEventListener('scroll', () => {
+            const rect = timeline.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            
+            // Trigger point: 60% down the screen
+            const triggerPoint = viewportHeight * 0.6;
+            
+            // Calculate how far the top of the timeline is from the trigger point
+            // rect.top is positive when below viewport top
+            // content starts filling when rect.top < triggerPoint
+            
+            const startOffset = rect.top - triggerPoint;
+            let height = -startOffset; 
+
+            // Clamp height
+            if (height < 0) height = 0;
+            if (height > rect.height) height = rect.height;
+
+            progress.style.height = `${height}px`;
+
+            // Optional: Light up dots as the line passes them
+            dots.forEach(dot => {
+                const dotRect = dot.getBoundingClientRect();
+                const dotTopRelative = dotRect.top - rect.top; // Position inside timeline
+                
+                if (height >= dotTopRelative) {
+                    dot.classList.add('bg-acid', 'border-acid');
+                    dot.classList.remove('bg-void', 'border-white/30');
+                } else {
+                    dot.classList.remove('bg-acid', 'border-acid');
+                    dot.classList.add('bg-void', 'border-white/30');
+                }
+            });
+        });
+    }
+</script>

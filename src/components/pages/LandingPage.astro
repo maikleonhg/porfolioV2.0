@@ -10,7 +10,11 @@ import LanguageSwitcher from "../ui/LanguageSwitcher.astro";
 import { content } from "../../i18n/ui";
 
 import TheKernel from "../sections/TheKernel.astro";
-import EvolutionLogs from "../sections/EvolutionLogs.astro";
+
+import Experience from "../sections/Experience.astro";
+
+import Navbar from "../ui/Navbar.astro";
+import Footer from "../ui/Footer.astro";
 
 interface Props {
     lang: "es" | "en";
@@ -21,13 +25,15 @@ const t = content[lang];
 ---
 
 <SystemLayout title="Maik Leon | Portfolio V2" lang={lang}>
-    <LanguageSwitcher currentLang={lang} />
-    <Hero t={t.hero} />
+    <Navbar lang={lang} />
+    <!-- <LanguageSwitcher currentLang={lang} /> -->
+    <!-- <Hero t={t.hero} /> -->
     <HeroPic t={t.hero} profile={t.systemProfile} />
     <TheKernel t={t.kernel} />
-    <DeployedSystems t={t.deployedSystems} />
-    <RnDLabs t={t.rndLabs} />
-    <Benchmarks t={t.benchmarks} />
+    <Experience t={t.experience} />
+    <DeployedSystems t={t.projects} lang={lang} />
+    <!-- <RnDLabs t={t.rndLabs} /> -->
+    <Benchmarks t={t.benchmarks} lang={lang} />
     <CurrentVector t={t.currentVector} />
-    <EvolutionLogs t={t.evolutionLogs} />
+    <Footer lang={lang} />
 </SystemLayout>

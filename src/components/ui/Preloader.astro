@@ -1,0 +1,99 @@
+---
+
+---
+
+<div
+    id="liquid-curtain"
+    class="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-auto bg-zinc-950"
+    style="z-index: 9999;"
+>
+    <!-- Central Text Container -->
+    <div class="relative">
+        <!-- 1. Background (Empty/Dim) -->
+        <h1
+            class="font-display text-4xl md:text-9xl tracking-tight text-white/10 select-none"
+        >
+            MAIK<span class="text-white/5">LEON</span>
+        </h1>
+
+        <!-- 2. Foreground (Liquid Fill) -->
+        <h1
+            id="liquid-text"
+            class="absolute inset-0 font-display text-4xl md:text-9xl tracking-tight text-transparent bg-clip-text select-none"
+            style="background-image: linear-gradient(to top, #ffffff 0%, #ffffff 50%, transparent 50%, transparent 100%); background-size: 100% 200%; background-position: 0% 0%;"
+        >
+            MAIK<span class="text-white/60">LEON</span>
+        </h1>
+
+        <!-- Loader: Positioned relative to the text -->
+        <div
+            class="absolute -bottom-6 right-0 md:-bottom-8 md:right-1 font-mono text-[10px] md:text-xs text-white/50 tracking-widest"
+        >
+            LOADING ... <span id="loading-percent" class="text-acid">0%</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { animate } from "motion";
+
+    // Lock Scroll immediately
+    document.body.style.overflow = "hidden";
+
+    const curtain = document.getElementById("liquid-curtain");
+    const liquidText = document.getElementById("liquid-text");
+    const percentEl = document.getElementById("loading-percent");
+
+    if (curtain && liquidText && percentEl) {
+        const ui = {
+            curtain,
+            text: liquidText,
+            percent: percentEl,
+        };
+
+        // Setup Animation Variables
+        let progress = 0;
+        const duration = 2200; // 2.2s total load time
+        const startTime = performance.now();
+
+        function update(currentTime: number) {
+            const elapsed = currentTime - startTime;
+            progress = Math.min(elapsed / duration, 1);
+
+            // 1. Update Percentage
+            const percent = Math.floor(progress * 100);
+            ui.percent.textContent = `${percent}%`;
+
+            // 2. Update Liquid Level
+            const easedProgress =
+                progress < 0.5
+                    ? 2 * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+            const bgPos = easedProgress * 100;
+            ui.text.style.backgroundPosition = `0% ${bgPos}%`;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                finish();
+            }
+        }
+
+        function finish() {
+            setTimeout(() => {
+                animate(
+                    ui.curtain,
+                    { transform: "translateY(-100%)" } as any,
+                    {
+                        duration: 0.8,
+                        easing: [0.76, 0, 0.24, 1],
+                    } as any,
+                ).finished.then(() => {
+                    document.body.style.overflow = "auto";
+                });
+            }, 300);
+        }
+
+        requestAnimationFrame(update);
+    }
+</script>

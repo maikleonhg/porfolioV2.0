@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import heroCoat from "../../assets/images/hero_coat.jpg";
-import heroSiluet from "../../assets/images/hero_siluet.png";
+import heroCoat from "../../assets/images/hero_pic.jpeg";
+import heroSiluet from "../../assets/images/hero_pic_siluet.png";
 import type { SystemProfileContent } from "../../i18n/ui";
 
 interface Props {
@@ -21,9 +21,9 @@ const { t, profile } = Astro.props;
         class="h-screen w-full flex items-center justify-center overflow-hidden"
         style="position: sticky; top: 0;"
     >
-        <!-- CAPA 0: IMÁGENES -->
+        <!-- CAPA 0: BACKGROUND (COAT) -->
         <div
-            id="hero-images"
+            id="hero-background"
             class="absolute inset-0 z-0 w-full h-full will-change-transform"
         >
             <Image
@@ -38,40 +38,90 @@ const { t, profile } = Astro.props;
                 class="absolute inset-0 bg-void/0 transition-colors duration-300"
             >
             </div>
+        </div>
 
-            <div class="absolute inset-0 flex items-center justify-center">
-                <Image
-                    src={heroSiluet}
-                    alt="Silhouette"
-                    class="h-[110%] w-auto object-cover grayscale contrast-125 brightness-90 drop-shadow-2xl mt-20"
-                />
+        <!-- CAPA 1: TEXTO (MARQUEE + STATIC) -->
+        <div
+            id="hero-text"
+            class="relative z-10 w-full h-full pointer-events-none"
+        >
+            <!-- STATIC: ROLES (Responsive) -->
+            <div
+                class="absolute top-[15%] w-full z-20 mix-blend-difference px-6 md:px-0"
+            >
+                <!-- DESKTOP: Centered & Horizontal -->
+                <div class="hidden md:flex justify-center">
+                    <p
+                        class="font-mono text-[#EFE5D5] text-base md:text-xl tracking-[0.3em] uppercase border-y border-[#EFE5D5]/30 py-4 px-8 backdrop-blur-[2px]"
+                    >
+                        DATA ENGINEER &nbsp;·&nbsp; AI DEVELOPER &nbsp;·&nbsp;
+                        SYSTEM ARCHITECT
+                    </p>
+                </div>
+
+                <!-- MOBILE: Centered & Stacked -->
+                <div
+                    class="md:hidden flex flex-col items-center space-y-3 border-y border-[#EFE5D5]/30 py-6 backdrop-blur-[2px]"
+                >
+                    <span
+                        class="font-mono text-[#EFE5D5] text-sm tracking-[0.2em] uppercase font-bold"
+                        >DATA ENGINEER</span
+                    >
+                    <span
+                        class="font-mono text-[#EFE5D5] text-sm tracking-[0.2em] uppercase font-bold"
+                        >AI DEVELOPER</span
+                    >
+                    <span
+                        class="font-mono text-[#EFE5D5] text-sm tracking-[0.2em] uppercase font-bold"
+                        >SYSTEM ARCHITECT</span
+                    >
+                </div>
+            </div>
+
+            <!-- MARQUEE: BOTTOM -->
+            <div
+                class="absolute bottom-0 w-full mix-blend-difference overflow-hidden pb-12"
+            >
+                <div class="marquee-container w-full">
+                    <div
+                        class="marquee-content font-display text-[35vw] md:text-[15vw] font-bold tracking-widest text-[#EFE5D5] whitespace-nowrap leading-none"
+                    >
+                        Miguel Alejandro Leon &nbsp; Miguel Alejandro Leon
+                        &nbsp;
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- CAPA 1: TEXTO (HARDWIRED / LOGIC) -->
-        <div
-            id="hero-text"
-            class="relative z-10 w-full h-full flex flex-col items-center justify-center pointer-events-none"
-        >
-            <div
-                class="absolute top-[15%] w-full text-center mix-blend-difference"
-            >
-                <h2
-                    class="font-display text-[12vw] font-bold tracking-widest text-[#EFE5D5] opacity-90"
-                >
-                    {t.hardwired}
-                </h2>
-            </div>
+        <style>
+            .marquee-container {
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .marquee-content {
+                display: inline-block;
+                animation: marquee 20s linear infinite;
+            }
+            @keyframes marquee {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+        </style>
 
-            <div
-                class="absolute top-[50%] w-full text-center mix-blend-difference"
-            >
-                <h2
-                    class="font-display text-[18vw] font-bold tracking-[0.1em] leading-none text-[#EFE5D5] opacity-90"
-                >
-                    {t.logic}
-                </h2>
-            </div>
+        <!-- CAPA 2: SILHOUETTE (En frente del texto) -->
+        <div
+            id="hero-silhouette"
+            class="absolute inset-0 z-[15] w-full h-full pointer-events-none will-change-transform"
+        >
+            <Image
+                src={heroSiluet}
+                alt="Silhouette"
+                class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-90 drop-shadow-2xl"
+            />
         </div>
     </div>
 
@@ -118,11 +168,12 @@ const { t, profile } = Astro.props;
 
 <script>
     const container = document.getElementById("scroll-container");
-    const images = document.getElementById("hero-images");
+    const background = document.getElementById("hero-background");
+    const silhouette = document.getElementById("hero-silhouette");
     const overlay = document.getElementById("image-overlay");
     const text = document.getElementById("hero-text");
 
-    if (container && images && text && overlay) {
+    if (container && background && silhouette && text && overlay) {
         window.addEventListener("scroll", () => {
             const rect = container.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
@@ -143,17 +194,19 @@ const { t, profile } = Astro.props;
                 text.style.opacity = "0";
             }
 
-            // 2) IMAGEN: 0.5 → 1 (blur + oscurecer)
+            // 2) IMAGENES (Fondo + Silueta): 0.5 → 1 (blur + oscurecer)
             if (progress > 0.5) {
                 const imgProgress = (progress - 0.5) / 0.5; // 0 → 1
 
                 const blurAmount = imgProgress * 20;
-                images.style.filter = `blur(${blurAmount}px)`;
+                background.style.filter = `blur(${blurAmount}px)`;
+                silhouette.style.filter = `blur(${blurAmount}px)`;
 
                 const opacity = imgProgress * 0.6;
                 overlay.style.backgroundColor = `rgba(10, 10, 10, ${opacity})`;
             } else {
-                images.style.filter = "blur(0px)";
+                background.style.filter = "blur(0px)";
+                silhouette.style.filter = "blur(0px)";
                 overlay.style.backgroundColor = `rgba(10, 10, 10, 0)`;
             }
         });
