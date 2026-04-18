@@ -321,6 +321,9 @@ const sectors = allSectors.filter(s => s.id === "SECTOR_A" || s.id === "SECTOR_B
         extendedContainer.innerHTML = '';
     }
 
+    // Reset scroll before showing
+    document.getElementById('modal-body').scrollTop = 0;
+
     // Show Modal
     modal.classList.remove('hidden');
     setTimeout(() => {

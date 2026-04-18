@@ -82,48 +82,35 @@ const tContent = content[currentLang];
 </section>
 
 <script is:inline>
-    // --- Hover Scroll Logic ---
     const slider = document.getElementById('awards-container');
-    let animationFrameId;
-    let scrollSpeed = 0;
-    
-    const MAX_SPEED = 7; // Lento speed
-    const ZONE_PERCENT = 0.25; // Active zones width (25% on each side)
+    const isMobile = window.matchMedia('(hover: none)').matches;
 
-    slider.addEventListener('mousemove', (e) => {
-        const rect = slider.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const width = rect.width;
+    if (!isMobile) {
+        // --- Hover Scroll Logic (desktop only) ---
+        let scrollSpeed = 0;
+        const MAX_SPEED = 7;
+        const ZONE_PERCENT = 0.25;
 
-        // Reset speed
-        scrollSpeed = 0;
+        slider.addEventListener('mousemove', (e) => {
+            const rect = slider.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const width = rect.width;
+            scrollSpeed = 0;
+            if (x < width * ZONE_PERCENT) {
+                scrollSpeed = -MAX_SPEED * (1 - (x / (width * ZONE_PERCENT)));
+            } else if (x > width * (1 - ZONE_PERCENT)) {
+                scrollSpeed = MAX_SPEED * ((x - width * (1 - ZONE_PERCENT)) / (width * ZONE_PERCENT));
+            }
+        });
 
-        // Check Left Zone
-        if (x < width * ZONE_PERCENT) {
-             const intensity = 1 - (x / (width * ZONE_PERCENT)); // 0 to 1
-             scrollSpeed = -MAX_SPEED * intensity;
+        slider.addEventListener('mouseleave', () => { scrollSpeed = 0; });
+
+        function animateScroll() {
+            if (scrollSpeed !== 0) slider.scrollLeft += scrollSpeed;
+            requestAnimationFrame(animateScroll);
         }
-        // Check Right Zone
-        else if (x > width * (1 - ZONE_PERCENT)) {
-             const intensity = (x - width * (1 - ZONE_PERCENT)) / (width * ZONE_PERCENT); // 0 to 1
-             scrollSpeed = MAX_SPEED * intensity;
-        }
-    });
-
-    slider.addEventListener('mouseleave', () => {
-        scrollSpeed = 0;
-    });
-
-    // Animation Loop
-    function animateScroll() {
-        if (scrollSpeed !== 0) {
-            slider.scrollLeft += scrollSpeed;
-        }
-        animationFrameId = requestAnimationFrame(animateScroll);
+        animateScroll();
     }
-    
-    // Start loop
-    animateScroll();
 
 
     // --- Modal Logic ---
@@ -156,11 +143,17 @@ const tContent = content[currentLang];
     display: flex;
     list-style: none;
     overflow-x: auto;
-    /* Removed scroll-snap to allow free smooth hover scrolling */
-    /* scroll-snap-type: x mandatory; */ 
+    scroll-snap-type: x mandatory;
     gap: 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (hover: hover) {
+    .cards {
+      scroll-snap-type: none;
+    }
   }
 
   .cards::-webkit-scrollbar {
@@ -168,29 +161,40 @@ const tContent = content[currentLang];
   }
 
   .card-item {
-    flex: 0 0 300px;
-    width: 300px;
-    height: 420px; /* Reduced from 500px as requested */
-    /* Removed snap align */
-    /* scroll-snap-align: center; */
-    perspective: 1000px;
-    
-    view-timeline-name: --li-in-and-out-of-view;
-    view-timeline-axis: inline;
+    flex: 0 0 260px;
+    width: 260px;
+    height: 380px;
+    scroll-snap-align: center;
+  }
 
-    animation: linear adjust-z-index both;
-    animation-timeline: --li-in-and-out-of-view;
+  /* 3D effects only on devices that support hover (desktop) */
+  @media (hover: hover) {
+    .card-item {
+      flex: 0 0 300px;
+      width: 300px;
+      height: 420px;
+      scroll-snap-align: unset;
+      perspective: 1000px;
+
+      view-timeline-name: --li-in-and-out-of-view;
+      view-timeline-axis: inline;
+
+      animation: linear adjust-z-index both;
+      animation-timeline: --li-in-and-out-of-view;
+    }
+
+    .cover-wrapper {
+      -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, rgba(0,0,0,0.4));
+
+      animation: linear rotate-cover both;
+      animation-timeline: --li-in-and-out-of-view;
+    }
   }
 
   .cover-wrapper {
     width: 100%;
     height: 100%;
     margin: 10px 0;
-    
-    -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, rgba(0,0,0,0.4));
-    
-    animation: linear rotate-cover both;
-    animation-timeline: --li-in-and-out-of-view;
   }
 
   @keyframes adjust-z-index {
