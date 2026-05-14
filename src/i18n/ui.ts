@@ -139,9 +139,9 @@ export interface UIContent {
 export const content: Record<'es' | 'en', UIContent> = {
     es: {
         hero: {
-            status: "Sistema v2.1 // En línea",
+            status: "Sistema v2.2 // En línea",
             title: "MIGUEL A. LEÓN",
-            role: "Data Engineer. Systems Architect. AI Engineer.",
+            role: "Data Engineer. Full-Stack. AI Engineer.",
             description: "Construyo arquitecturas que unen la logica de datos con la inteligencia artificial aplicada.",
             scroll: "DESLIZA PARA INICIAR ↓",
             location: "Hidalgo, MX",
@@ -152,7 +152,7 @@ export const content: Record<'es' | 'en', UIContent> = {
         systemProfile: {
             header: "SYSTEM_PROFILE // ABOUT_ME",
             subtitle: "El Motor Multipotencial",
-            narrative: "Soy un desarrollador orientado a soluciones, enfocado en construir sistemas impulsados por datos, arquitectura sólida e inteligencia artificial. Mi enfoque profesional combina análisis, diseño y capacidad técnica para desarrollar productos de principio a fin.\nAdemás de trabajar con datos y modelos, también diseño y construyo la infraestructura necesaria para que las soluciones funcionen: desde el desarrollo full-stack hasta el despliegue en plataformas cloud y servidores propios. Me interesa crear sistemas escalables, confiables y preparados para crecer. \n\nBusco posicionarme como un profesional integral capaz de tomar una idea, convertirla en un sistema funcional y llevarlo hasta producción."
+            narrative: "Soy un desarrollador orientado a soluciones, enfocado en construir sistemas impulsados por datos, arquitectura sólida e inteligencia artificial. Mi enfoque profesional combina análisis, diseño y capacidad técnica para desarrollar productos de principio a fin.\nAdemás de trabajar con datos y modelos, también diseño y construyo la infraestructura necesaria para que las soluciones funcionen: desde el desarrollo full-stack hasta el despliegue en plataformas cloud y servidores propios. Me interesa crear sistemas escalables, confiables y preparados para crecer.\n\nBusco posicionarme como un profesional integral capaz de tomar una idea, convertirla en un sistema funcional y llevarlo hasta producción.\n\nOpero en la frontera entre código y conversación: traduzco complejidad técnica a equipos no técnicos y trato la documentación como parte de la arquitectura — porque un sistema que nadie más entiende es un sistema que ya está obsoleto."
         },
         kernel: {
             header: "CORE_OPERATING_SYSTEM",
@@ -182,11 +182,11 @@ export const content: Record<'es' | 'en', UIContent> = {
             systems: [
                 {
                     title: "Somos Empleables",
-                    subtitle: "Automatización y Data Engineering",
-                    stack: ["n8n", "Apify", "Notion", "G-Sheets"],
-                    description: "Diseñé e implementé un sistema integral de automatización para la recolección, limpieza y clasificación de vacantes. Automaticé el scraping diario, depuración de datos y sincronización con Notion y Telegram, reduciendo el trabajo manual a cero.",
+                    subtitle: "AI & Full-Stack Engineer — Arquitecto Técnico",
+                    stack: ["Next.js 15", "Prisma", "PostgreSQL", "Auth.js v5", "Webpay Plus", "n8n", "Whisper API", "Qdrant", "Docker", "Hetzner ARM64"],
+                    description: "Construyo y opero se-programa, plataforma SaaS de empleabilidad en producción (Next.js 15 + Prisma + PostgreSQL + Auth.js v5) cobrando pagos reales vía Webpay Plus homologado, bajo un stack unificado para el curso low-ticket y el hub de coaching high-ticket. Levanté la infraestructura completa sobre VPS Hetzner ARM64 (Docker Compose, Nginx, Certbot multi-dominio con SSL) alojando la plataforma, n8n, dashboard interno y web pública. Implementé un pipeline de transcripción de entrevistas con Whisper API + n8n para feedback automatizado de sesiones de coaching, con sincronización bidireccional Postgres ↔ Notion. Opero el pipeline de scraping de empleos con Apify + n8n (40+ nodos, 500+ ofertas/día desde LinkedIn) alimentando un motor de matching semántico sobre Qdrant con embeddings.",
                     id: "SYS-01",
-                    date: "Sep 2025 - Presente"
+                    date: "Oct 2025 - Presente"
                 },
                 {
                     title: "BizBat",
@@ -300,9 +300,9 @@ export const content: Record<'es' | 'en', UIContent> = {
     },
     en: {
         hero: {
-            status: "System v2.1 // Online",
+            status: "System v2.2 // Online",
             title: "MIGUEL A. LEÓN",
-            role: "Data Engineer. Systems Architect. Human Optimizer.",
+            role: "Data Engineer. Full-Stack. AI Engineer.",
             description: "I build architectures that unite data logic with applied artificial intelligence.",
             scroll: "SCROLL TO INITIALIZE ↓",
             location: "Hidalgo, MX",
@@ -313,7 +313,7 @@ export const content: Record<'es' | 'en', UIContent> = {
         systemProfile: {
             header: "SYSTEM_PROFILE // ABOUT_ME",
             subtitle: "The Multipotential Engine",
-            narrative: "I am a solution-oriented developer focused on building systems powered by data, solid architecture, and artificial intelligence. My professional approach combines analysis, design, and technical capability to develop products from start to finish.\nBeyond working with data and models, I also design and build the necessary infrastructure for solutions to work: from full-stack development to deployment on cloud platforms and self-hosted servers. I'm interested in creating scalable, reliable systems that are prepared to grow.\n\nI seek to position myself as a well-rounded professional capable of taking an idea, turning it into a functional system, and bringing it all the way to production."
+            narrative: "I am a solution-oriented developer focused on building systems powered by data, solid architecture, and artificial intelligence. My professional approach combines analysis, design, and technical capability to develop products from start to finish.\nBeyond working with data and models, I also design and build the necessary infrastructure for solutions to work: from full-stack development to deployment on cloud platforms and self-hosted servers. I'm interested in creating scalable, reliable systems that are prepared to grow.\n\nI seek to position myself as a well-rounded professional capable of taking an idea, turning it into a functional system, and bringing it all the way to production.\n\nI operate at the border between code and conversation: I translate technical complexity for non-technical teams and treat documentation as part of the architecture — because a system no one else can understand is a system that's already obsolete."
         },
         kernel: {
             header: "CORE_OPERATING_SYSTEM",
@@ -343,11 +343,11 @@ export const content: Record<'es' | 'en', UIContent> = {
             systems: [
                 {
                     title: "Somos Empleables",
-                    subtitle: "Automation & Data Engineering",
-                    stack: ["n8n", "Apify", "Notion", "G-Sheets"],
-                    description: "Designed and implemented a comprehensive automation system for job vacancy collection, cleaning, and classification. Automated daily scraping, data debugging, and synchronization with Notion and Telegram, reducing manual work to zero.",
+                    subtitle: "AI & Full-Stack Engineer — Technical Architect",
+                    stack: ["Next.js 15", "Prisma", "PostgreSQL", "Auth.js v5", "Webpay Plus", "n8n", "Whisper API", "Qdrant", "Docker", "Hetzner ARM64"],
+                    description: "Built and operate se-programa, a SaaS employability platform in production (Next.js 15 + Prisma + PostgreSQL + Auth.js v5) processing real payments via certified Webpay Plus, on a unified stack for the low-ticket course and the high-ticket coaching hub. Stood up the full infrastructure on a Hetzner ARM64 VPS (Docker Compose, Nginx, multi-domain Certbot SSL) hosting the platform, n8n, internal dashboard, and public site. Implemented an interview transcription pipeline with Whisper API + n8n for automated coaching-session feedback, with bidirectional Postgres ↔ Notion sync. Operate the job-scraping pipeline with Apify + n8n (40+ nodes, 500+ offers/day from LinkedIn) feeding a semantic matching engine on Qdrant with embeddings.",
                     id: "SYS-01",
-                    date: "Sep 2025 - Present"
+                    date: "Oct 2025 - Present"
                 },
                 {
                     title: "BizBat",
