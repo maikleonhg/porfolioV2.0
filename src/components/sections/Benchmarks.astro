@@ -39,9 +39,9 @@ const tContent = content[currentLang];
     </div>
 
     <!-- Cover Flow Container -->
-    <ul 
+    <ul
         id="awards-container"
-        class="cards py-24 px-[calc(50vw-150px)] md:px-[calc(50vw-150px)]"
+        class="cards py-24 px-[calc(50vw-130px)] md:px-[calc(50vw-150px)]"
     >
       {awards.map((award) => (
         <li class="card-item group">
@@ -49,10 +49,13 @@ const tContent = content[currentLang];
                <!-- Image -->
                <div class="relative w-full flex-1 min-h-0 border-b border-white/5 overflow-hidden">
                     <div class="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-40 z-10 pointer-events-none"></div>
-                    <img 
-                        src={award.image} 
-                        alt={award.title[currentLang as 'en' | 'es']} 
+                    <img
+                        src={award.image}
+                        alt={award.title[currentLang as 'en' | 'es']}
                         loading="lazy"
+                        decoding="async"
+                        width="300"
+                        height="220"
                         class="w-full h-full object-cover object-top cursor-zoom-in"
                         onclick={`window.openAwardModal('${award.image}')`}
                     />
@@ -83,7 +86,19 @@ const tContent = content[currentLang];
 
 <script is:inline>
     const slider = document.getElementById('awards-container');
-    const isMobile = window.matchMedia('(hover: none)').matches;
+    // Robust desktop detection: must have hover AND fine pointer AND no touch points.
+    // Some Android browsers (Samsung Internet, Chrome w/ stylus) lie about (hover:hover),
+    // which would enable the 3D scroll-timeline animations and trash performance.
+    const hasHover = window.matchMedia('(hover: hover)').matches;
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    const hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isDesktop = hasHover && hasFinePointer && !hasTouch;
+    const isMobile = !isDesktop;
+
+    // Tag body so CSS can gate the heavy animations on JS-confirmed desktop only.
+    if (isDesktop) {
+        document.body.classList.add('is-desktop-pointer');
+    }
 
     if (!isMobile) {
         // --- Hover Scroll Logic (desktop only) ---
@@ -150,10 +165,9 @@ const tContent = content[currentLang];
     -webkit-overflow-scrolling: touch;
   }
 
-  @media (hover: hover) {
-    .cards {
-      scroll-snap-type: none;
-    }
+  /* Disable scroll-snap on JS-confirmed desktop (smooth hover-driven scroll). */
+  :global(body.is-desktop-pointer) .cards {
+    scroll-snap-type: none;
   }
 
   .cards::-webkit-scrollbar {
@@ -165,30 +179,34 @@ const tContent = content[currentLang];
     width: 260px;
     height: 380px;
     scroll-snap-align: center;
+    /* Ensure mobile gets a clean compositor layer with no perspective/3D cost. */
+    transform: none;
+    perspective: none;
   }
 
-  /* 3D effects only on devices that support hover (desktop) */
-  @media (hover: hover) {
-    .card-item {
-      flex: 0 0 300px;
-      width: 300px;
-      height: 420px;
-      scroll-snap-align: unset;
-      perspective: 1000px;
+  /* 3D effects ONLY when JS confirms this is a desktop with mouse pointer.
+     Avoids @media (hover: hover) false positives on touch devices, which
+     would otherwise enable scroll-driven view-timeline animations on mobile
+     and trash horizontal scroll performance. */
+  :global(body.is-desktop-pointer) .card-item {
+    flex: 0 0 300px;
+    width: 300px;
+    height: 420px;
+    scroll-snap-align: unset;
+    perspective: 1000px;
 
-      view-timeline-name: --li-in-and-out-of-view;
-      view-timeline-axis: inline;
+    view-timeline-name: --li-in-and-out-of-view;
+    view-timeline-axis: inline;
 
-      animation: linear adjust-z-index both;
-      animation-timeline: --li-in-and-out-of-view;
-    }
+    animation: linear adjust-z-index both;
+    animation-timeline: --li-in-and-out-of-view;
+  }
 
-    .cover-wrapper {
-      -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, rgba(0,0,0,0.4));
+  :global(body.is-desktop-pointer) .cover-wrapper {
+    -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, rgba(0,0,0,0.4));
 
-      animation: linear rotate-cover both;
-      animation-timeline: --li-in-and-out-of-view;
-    }
+    animation: linear rotate-cover both;
+    animation-timeline: --li-in-and-out-of-view;
   }
 
   .cover-wrapper {
