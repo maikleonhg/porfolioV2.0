@@ -139,7 +139,7 @@ export interface UIContent {
 export const content: Record<'es' | 'en', UIContent> = {
     es: {
         hero: {
-            status: "Sistema v2.1 // En línea",
+            status: "Sistema v2.2 // En línea",
             title: "MIGUEL A. LEÓN",
             role: "Data Engineer. Full-Stack. AI Engineer.",
             description: "Construyo arquitecturas que unen la logica de datos con la inteligencia artificial aplicada.",
@@ -300,7 +300,7 @@ export const content: Record<'es' | 'en', UIContent> = {
     },
     en: {
         hero: {
-            status: "System v2.1 // Online",
+            status: "System v2.2 // Online",
             title: "MIGUEL A. LEÓN",
             role: "Data Engineer. Full-Stack. AI Engineer.",
             description: "I build architectures that unite data logic with applied artificial intelligence.",
