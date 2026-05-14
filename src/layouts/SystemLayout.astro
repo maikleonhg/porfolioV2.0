@@ -30,23 +30,27 @@ const {
         <meta name="description" content={description} />
         <meta name="generator" content={Astro.generator} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/og.png" />
+        <meta name="theme-color" content="#0a0a0a" />
 
-        <!-- Open Graph / Facebook -->
+        <!-- Open Graph / Facebook / WhatsApp / LinkedIn / Telegram / iMessage -->
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Miguel A. León — Portfolio" />
         <meta property="og:url" content="https://maikleonlab.com/" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="/images/sys-001/Dashboard2.png" />
+        <meta property="og:image" content="https://maikleonlab.com/og.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Miguel A. León — Data Engineer. Full-Stack. AI Engineer." />
+        <meta property="og:locale" content="es_MX" />
 
-        <!-- Twitter -->
+        <!-- Twitter / X -->
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://maikleonlab.com/" />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
-        <meta
-            property="twitter:image"
-            content="/images/sys-001/Dashboard2.png"
-        />
+        <meta property="twitter:image" content="https://maikleonlab.com/og.png" />
 
         <title>{title}</title>
     </head>
