@@ -37,22 +37,22 @@ export const sectors: { id: string; title: string; subtitle: string; projects: P
         projects: [
             {
                 id: "SYS-001",
-                title: "Personal Performance & Habit Data Analysis",
-                status: "LIVE // EVOLVING",
-                stack: ["Streamlit", "Python", "Pandas", "WHOOP API", "Strava"],
+                title: "Performance OS — Personal Performance Platform",
+                status: "LIVE // V2",
+                stack: ["FastAPI", "SQLite", "Next.js 16", "Tailwind v4", "Recharts", "FastMCP", "Docker", "Cloudflare Tunnel", "GitHub Actions"],
                 concept: {
-                    es: "Ingeniería inversa de mi propia fisiología. Un dashboard vivo que correlaciona sueño, estrés y carga de entrenamiento para predecir el rendimiento cognitivo y físico.",
-                    en: "Reverse engineering my own physiology. A live dashboard correlating sleep, stress, and training load to predict cognitive and physical performance."
+                    es: "Plataforma multi-fuente que integra biometría (WHOOP), actividad (Strava), hábitos (Notion), tiempo de pantalla y finanzas en una base unificada con 370+ días de histórico. Expuesta como servidor MCP con 8 tools consumido por agentes IA del ecosistema Principia.",
+                    en: "Multi-source platform integrating biometrics (WHOOP), activity (Strava), habits (Notion), screen time and finance into a unified base with 370+ days of history. Exposed as an MCP server with 8 tools, consumed by AI agents across the Principia ecosystem."
                 },
                 type: "BLUEPRINT",
                 layout: "split",
                 blueprint: {
                     title: "Architecture Diagram",
                     description: {
-                        es: "Flujo de datos: WHOOP/Strava API -> Python ETL -> Pandas DataFrame -> Streamlit Visualization.",
-                        en: "Data Flow: WHOOP/Strava API -> Python ETL -> Pandas DataFrame -> Streamlit Visualization."
+                        es: "APIs (WHOOP/Strava/Notion/Chess) + parsers PDF bancarios -> ETL diario cron -> SQLite -> FastAPI -> Next.js 16 web + servidor MCP (8 tools) consumido por agentes IA.",
+                        en: "APIs (WHOOP/Strava/Notion/Chess) + bank PDF parsers -> daily ETL cron -> SQLite -> FastAPI -> Next.js 16 web + MCP server (8 tools) consumed by AI agents."
                     },
-                    specs: "Data Refresh: 15min | Storage: Local Parquet | Model: Linear Regression"
+                    specs: "History: 370+ days | App-usage rows: 34,000+ | MCP tools: 8 | Deploy: Docker on ARM64 + Cloudflare Tunnel"
                 },
                 details: sys001,
                 visual: "/images/sys-001/Dashboard2.webp",
@@ -84,21 +84,21 @@ export const sectors: { id: string; title: string; subtitle: string; projects: P
             },
             {
                 id: "SYS-003",
-                title: "The Headhunter",
+                title: "The Headhunter — Semantic Job Matching",
                 status: "DEPLOYED // AUTOMATED",
-                stack: ["n8n", "Apify", "Notion API", "Google Sheets", "Telegram Bot"],
+                stack: ["n8n", "Apify", "Qdrant", "Embeddings", "Notion API", "PostgreSQL", "Telegram Bot"],
                 concept: {
-                    es: "Sistema ETL de nivel empresarial que orquesta la búsqueda, limpieza, clasificación y distribución de miles de ofertas laborales diarias sin intervención humana.",
-                    en: "Enterprise-grade ETL system orchestrating the search, cleaning, classification, and distribution of thousands of daily job offers without human intervention."
+                    es: "Pipeline ETL de nivel empresarial que orquesta scraping, limpieza y clasificación de 500+ ofertas diarias desde LinkedIn (40+ nodos en n8n), alimentando un motor de matching semántico sobre Qdrant con embeddings — recomienda vacantes por similitud de significado, no por palabras clave.",
+                    en: "Enterprise-grade ETL pipeline orchestrating scraping, cleaning, and classification of 500+ daily LinkedIn offers (40+ n8n nodes), feeding a semantic matching engine on Qdrant with embeddings — recommends roles by meaning similarity, not keywords."
                 },
                 type: "BLUEPRINT",
                 blueprint: {
                     title: "Intelligent Recruitment Pipeline",
                     description: {
-                        es: "Notion (Config) -> Apify (Scraping) -> n8n (Orchestration) -> Google Sheets (DB) -> Notion (CRM).",
-                        en: "Notion (Config) -> Apify (Scraping) -> n8n (Orchestration) -> Google Sheets (DB) -> Notion (CRM)."
+                        es: "Apify (Scraping LinkedIn) -> n8n (40+ nodos, orquestación) -> PostgreSQL (storage) -> Qdrant (vector DB con embeddings) -> Matching semántico -> Notion CRM + Telegram.",
+                        en: "Apify (LinkedIn scraping) -> n8n (40+ nodes, orchestration) -> PostgreSQL (storage) -> Qdrant (vector DB with embeddings) -> Semantic matching -> Notion CRM + Telegram."
                     },
-                    specs: "Volume: 1k+ Rows/Day | Self-Healing: Yes | Notifications: Telegram"
+                    specs: "Volume: 500+ offers/day | Match: Semantic (Qdrant + embeddings) | Self-Healing: Yes"
                 },
                 details: sys003,
                 visual: "/images/sys-003/scrappern8n.webp",
@@ -154,6 +154,21 @@ export const sectors: { id: string; title: string; subtitle: string; projects: P
                 type: "LIGHTBOX",
                 gallery: ["/images/sectorB/drleonwebherosection.webp", "/images/sectorB/DrLeonWeb3.webp", "/images/sectorB/DrLeonWeb2.webp"],
                 visual: "/images/sectorB/drleonwebherosection.webp",
+                colSpan: "md:col-span-2",
+                rowSpan: "md:row-span-1"
+            },
+            {
+                id: "CLI-004",
+                title: "SE Programa — SaaS de empleabilidad",
+                status: "PRODUCTION // CHARGING",
+                stack: ["Next.js 15", "Prisma", "PostgreSQL", "Auth.js v5", "Webpay Plus", "Notion API"],
+                concept: {
+                    es: "Plataforma SaaS de Somos Empleables. Dos productos en un mismo sistema: curso self-serve low-ticket y hub VIP de coaching high-ticket con sesiones 1:1, ficha profesional y gestión de postulaciones — todo unificado en Next.js 15 + Prisma con pagos reales vía Webpay Plus homologado.",
+                    en: "Somos Empleables' SaaS platform. Two products in one system: a self-serve low-ticket course and a high-ticket VIP coaching hub with 1:1 sessions, professional profile and application tracking — unified in Next.js 15 + Prisma with real payments via certified Webpay Plus."
+                },
+                type: "LIGHTBOX",
+                gallery: ["/images/sectorB/seprograma.webp"],
+                visual: "/images/sectorB/seprograma.webp",
                 colSpan: "md:col-span-2",
                 rowSpan: "md:row-span-1"
             }
